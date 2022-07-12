@@ -14,7 +14,9 @@ import (
 func main() {
 	buf := bufio.NewReader(os.Stdin)
 	screen.Clear()
-	fmt.Println("Welcome to Gosh v0.0.1 (Linux based Go shell)")
+	screen.MoveTopLeft()
+	fmt.Println("\n\nWelcome to Gosh v0.0.1 (Linux based Go shell)\n\nCopyright (c) 2022 Vaclovas Lapinskis")
+	fmt.Println()
 	for {
 		fmt.Printf("%s$ ", os.Args[0])
 		input, err := buf.ReadString('\n')
@@ -23,6 +25,9 @@ func main() {
 		}
 		input = strings.ReplaceAll(input, "\n", "")
 		switch input {
+		case "clear":
+			screen.Clear()
+			screen.MoveTopLeft()
 		case "help":
 			gosh.Help()
 		case "restart":
