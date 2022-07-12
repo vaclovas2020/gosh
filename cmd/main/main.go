@@ -15,10 +15,10 @@ func main() {
 	buf := bufio.NewReader(os.Stdin)
 	screen.Clear()
 	screen.MoveTopLeft()
-	fmt.Println("\n\nWelcome to Gosh v0.0.1 (Linux based Go shell)\n\nCopyright (c) 2022 Vaclovas Lapinskis")
+	fmt.Println("\n\n  Welcome to Gosh v0.0.1 (Linux based Go shell)\n\n  Copyright (c) 2022 Vaclovas Lapinskis")
 	fmt.Println()
 	for {
-		fmt.Printf("%s$ ", os.Args[0])
+		fmt.Printf("  %s$ ", os.Args[0])
 		input, err := buf.ReadString('\n')
 		if err != nil {
 			panic(err)
