@@ -7,11 +7,13 @@ import (
 	"strings"
 	"syscall"
 
+	"github.com/inancgumus/screen"
 	"webimizer.dev/gosh"
 )
 
 func main() {
 	buf := bufio.NewReader(os.Stdin)
+	screen.Clear()
 	fmt.Println("Welcome to Gosh v0.0.1 (Linux based Go shell)")
 	for {
 		fmt.Printf("%s$ ", os.Args[0])
