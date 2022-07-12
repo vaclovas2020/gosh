@@ -1,10 +1,8 @@
 #include "init.h"
 
-long _syscall(int num, void *a0, void *a1, void *a2, void *a3, void *a4, void *a5)
-{
-}
+long _syscall(int num, void *a0, void *a1, void *a2, void *a3, void *a4, void *a5);
 
-unsigned long _strlen(char *sz)
+unsigned long _strlen(const char *sz)
 {
     int count = 0;
     while (*sz++)
@@ -22,5 +20,5 @@ void delay(int ticks)
 
 void str_print(const char *msg)
 {
-    _syscall(SYS_write, 1 /* stdout */, (void *)msg, (void *)_strlen(msg), 0, 0, 0);
+    _syscall(SYS_write, (void *)1 /* stdout */, (void *)msg, (void *)_strlen(msg), 0, 0, 0);
 }
