@@ -1,41 +1,26 @@
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
 #include "init.h"
 
-int main()
+long _syscall(int num, void *a0, void *a1, void *a2, void *a3, void *a4, void *a5)
 {
-    int onefd = open("/dev/console", O_RDONLY, 0);
-    dup2(onefd, 0); // stdin
-    int twofd = open("/dev/console", O_RDWR, 0);
-    dup2(twofd, 1); // stdout
-    dup2(twofd, 2); // stderr
-
-    if (onefd > 2)
-        close(onefd);
-    if (twofd > 2)
-        close(twofd);
-    printf("Starting Gosh...");
-    int pid = start_process("/bin/gosh", "gosh");
-    if (pid == 0)
-    {
-        while (1)
-            ;
-    }
 }
 
-int start_process(const char *path, const char *arg)
+unsigned long _strlen(char *sz)
 {
-    int pid = fork();
-    if (!pid)
+    int count = 0;
+    while (*sz++)
     {
-        printf("Process `%s` exit with code %d", path, execl(path, arg, NULL));
+        count++;
     }
-    else
-    {
-        printf("Starting process `%s` (arg: %s) (pid: %d)...", path, arg, pid);
-    }
-    return pid;
+    return count;
+}
+
+void delay(int ticks)
+{
+    for (int i = 0; i < ticks; i++)
+        ;
+}
+
+void str_print(const char *msg)
+{
+    _syscall(SYS_write, 1 /* stdout */, (void *)msg, (void *)_strlen(msg), 0, 0, 0);
 }
