@@ -5,10 +5,14 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"syscall"
+
+	"webimizer.dev/gosh"
 )
 
 func main() {
 	buf := bufio.NewReader(os.Stdin)
+	fmt.Println("Welcome to Gosh v0.0.1 (Linux based Go shell)")
 	for {
 		fmt.Printf("%s$ ", os.Args[0])
 		input, err := buf.ReadString('\n')
@@ -17,20 +21,14 @@ func main() {
 		}
 		input = strings.ReplaceAll(input, "\n", "")
 		switch input {
-		case "hello":
-			hello()
-		case "exit":
-			os.Exit(0)
+		case "help":
+			gosh.Help()
+		case "restart":
+			syscall.Reboot(syscall.LINUX_REBOOT_CMD_RESTART)
+		case "shutdown":
+			syscall.Reboot(syscall.LINUX_REBOOT_CMD_POWER_OFF)
 		default:
-			notFound(input)
+			gosh.NotFound(input)
 		}
 	}
-}
-
-func hello() {
-	fmt.Println("Hello world")
-}
-
-func notFound(command string) {
-	fmt.Printf("Command `%s` not found..\n", command)
 }
