@@ -24,6 +24,9 @@ func main() {
 			panic(err)
 		}
 		input = strings.ReplaceAll(input, "\n", "")
+		if input == "" {
+			continue
+		}
 		switch input {
 		case "clear":
 			screen.Clear()
