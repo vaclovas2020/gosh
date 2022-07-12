@@ -17,6 +17,7 @@ int main()
         close(onefd);
     if (twofd > 2)
         close(twofd);
+    printf("Starting Gosh...");
     int pid = start_process("/bin/gosh", "gosh");
     if (pid == 0)
     {
