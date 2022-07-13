@@ -37,6 +37,8 @@ func main() {
 			syscall.Reboot(syscall.LINUX_REBOOT_CMD_RESTART)
 		case "shutdown":
 			syscall.Reboot(syscall.LINUX_REBOOT_CMD_POWER_OFF)
+		case "goroutines_test":
+			gosh.GoRoutinesTest()
 		default:
 			gosh.NotFound(input)
 		}
